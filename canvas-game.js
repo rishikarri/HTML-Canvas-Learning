@@ -58,6 +58,18 @@ var monsterSpeedModifier = 1;
 var monsterNewDestinationX  = Math.random() * 400 + 40; 
 var monsterNewDestinationY  = Math.random() * 400 + 20; 
 
+// create a timer for the game
+
+var secondsOnLoad = Date.now()/1000; 
+var secondsTimer = setInterval(updateCounter, 1000); 
+
+function updateCounter(){
+	var now = Date.now()/1000;
+	secondsPassed = now - secondsOnLoad;
+	console.log(secondsPassed);
+	document.getElementById("timer-section").innerHTML = "Total Time Passed: " + Math.floor(secondsPassed) + " seconds"; 
+}
+
 
 
 function update(){
@@ -93,7 +105,7 @@ function update(){
 		monsterNewDestinationX = Math.random() * 400 + 40; 
 	}else if(monsterNewDestinationX > monsterLocation.x){
 		monsterLocation.x += 3 * monsterSpeedModifier;
-		console.log(monsterNewDestinationX, monsterLocation.x);
+		// console.log(monsterNewDestinationX, monsterLocation.x);
 
 	}else{
 		monsterLocation.x -= 3 * monsterSpeedModifier;
@@ -103,7 +115,7 @@ function update(){
 		monsterNewDestinationY = Math.random() * 400 + 20; 
 	}else if(monsterNewDestinationY > monsterLocation.y){
 		monsterLocation.y += 3 * monsterSpeedModifier;
-		console.log(monsterNewDestinationY, monsterLocation.y);
+		// console.log(monsterNewDestinationY, monsterLocation.y);
 
 	}else{
 		monsterLocation.y -= 3 * monsterSpeedModifier;
@@ -118,7 +130,7 @@ function update(){
 
 		
 	){
-		console.log("Hero is within 32 of the monster");
+		// console.log("Hero is within 32 of the monster");
 		//make monster move if Hero catches the monster
 		var newMonsterX = Math.random() * 400 + 40; 
 		var newMonsterY = Math.random() * 400 + 20;
@@ -127,7 +139,7 @@ function update(){
 		score++;
 		document.getElementById("scoreKeeper").innerHTML = "Score: " + score; 
 	}else{
-		console.log("Ehh, not close enough");
+		// console.log("Ehh, not close enough");
 	}
 
 }
