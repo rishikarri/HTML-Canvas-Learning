@@ -46,6 +46,9 @@ addEventListener("keydown", function(event){
 	// when I press left, 37 is now in the keysdown array
 })
 
+// score of user 
+var score = 0; 
+// 	
 //control the speed of my hero
 
 var speedModifier = 1;
@@ -54,6 +57,8 @@ var monsterSpeedModifier = 1;
 //new destination for monster to drift towardss
 var monsterNewDestinationX  = Math.random() * 400 + 40; 
 var monsterNewDestinationY  = Math.random() * 400 + 20; 
+
+
 
 function update(){
 
@@ -110,6 +115,8 @@ function update(){
 	if(
 		(Math.abs(heroLocation.x - monsterLocation.x) <32)&&
 		(Math.abs(heroLocation.y - monsterLocation.y) <32)
+
+		
 	){
 		console.log("Hero is within 32 of the monster");
 		//make monster move if Hero catches the monster
@@ -117,6 +124,8 @@ function update(){
 		var newMonsterY = Math.random() * 400 + 20;
 		monsterLocation.x = newMonsterX;
 		monsterLocation.y = newMonsterY;
+		score++;
+		document.getElementById("scoreKeeper").innerHTML = "Score: " + score; 
 	}else{
 		console.log("Ehh, not close enough");
 	}
