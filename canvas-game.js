@@ -47,7 +47,7 @@ addEventListener("keydown", function(event){
 })
 
 // score of user 
-var score = 0; 
+
 // 	
 //control the speed of my hero
 
@@ -145,6 +145,8 @@ function update(){
 		monsterLocation.y = newMonsterY;
 		score++;
 		document.getElementById("scoreKeeper").innerHTML = "Score: " + score; 
+
+
 	}else{
 		// console.log("Ehh, not close enough");
 	}
@@ -198,9 +200,15 @@ function resumeGame(){
 
 	// console.log(timeLeft);
 }
+// create a new player 
+
+function Player(name){
+	this.name = name; 
+	this.highscore = 0;
+}
 
 
-//Get pplayer names
+//Get pplayer names	
 
 function newPlayer(){
 	var playerNameDiv = document.getElementById("player-name");
@@ -208,6 +216,10 @@ function newPlayer(){
 	var playerName = playerNameDiv.value;
 	document.getElementById("greeting").innerHTML = "Hello, " + playerName + "! The town is being overrun by goblins and it is your job to catch as many as you can in 30 seconds! Goodluck!"
 
+	//make a new player
+	var player = new Player(playerName);
+	playerArray.push(player);
+	console.log(playerArray);
 }
 function updateTimer(){
 	var now = Date.now(); 
@@ -227,6 +239,10 @@ var gameStart = 0;
 var gameResumed = 0;
 var gameEnd = 0; 
 var timerInterval = 0; 
+var playerArray = [];
+var allTimeHighScore = 0; 
+var score = 0; 
+
 
 function draw() {
 	//draws our background image on teh context at the top left corner
