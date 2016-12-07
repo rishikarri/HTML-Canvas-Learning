@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-
+	<title>A canvas game!</title>
+	<link rel="stylesheet" type="text/css" href="canvas-game.css">
 	
 </head>
 <body>
-<h2 id="scoreKeeper">Score: 0</h2>
-<div id="timer-section">Total Time Passed: 0 </div>
 
-<script type="text/javascript" src="canvas-game.js"></script>	
+	<div id="top-section">	
+		<h2 id="scoreKeeper">Score: 0</h2>
+		<div id="timerSection">Time Left: 30 Seconds </div>
+		<button onclick="startGame()">Start a New Game</button>
+		<button onclick="stopGame()">Stop Game</button>
+		<button onclick="resumeGame()">Resume Game</button>
+		<button onclick="newPlayer()">New Player</button>
+		<input id="player-name" type="text" placeholder="Player Name">
+		<h2 id="greeting">Enter your name!</h2>
+	</div>
+
+	<!-- middle section which only has the   -->
+	<div id="middle-section"> 
+		
+	</div>
+	<script type="text/javascript" src="canvas-game.js"></script>	
 </body>
 
 </html>

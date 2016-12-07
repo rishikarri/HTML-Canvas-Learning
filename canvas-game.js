@@ -58,18 +58,26 @@ var monsterSpeedModifier = 1;
 var monsterNewDestinationX  = Math.random() * 400 + 40; 
 var monsterNewDestinationY  = Math.random() * 400 + 20; 
 
-// create a timer for the game
+// create a timer for the game - RK 
 
-var secondsOnLoad = Date.now()/1000; 
-var secondsTimer = setInterval(updateCounter, 1000); 
+	// var secondsOnLoad = Date.now()/1000; 
+	// var secondsTimer = setInterval(updateCounter, 1000); 
 
-function updateCounter(){
-	var now = Date.now()/1000;
-	secondsPassed = now - secondsOnLoad;
-	console.log(secondsPassed);
-	document.getElementById("timer-section").innerHTML = "Total Time Passed: " + Math.floor(secondsPassed) + " seconds"; 
-}
+	// function updateCounter(){
+	// 	var now = Date.now()/1000;
+	// 	secondsPassed = now - secondsOnLoad;
+	// 	console.log(secondsPassed);
+	// 	document.getElementById("timer-section").innerHTML = "Total Time Passed: " + Math.floor(secondsPassed) + " seconds"; 
+	// }
 
+// Class version
+// 2. Add a countdown timer
+// Start a game button. 
+// When clicked on, the game starts (timer starts, player can move)
+// When clicked on, get Date.now() and save iti tot hte current Date 
+// When clicked on, get Date.now + 30 * 1000 milliseconds
+// Create a setINterval to run every X and inside, recalculate the timer 
+// Wehn the difference is < 0, stop the game, clear the timer 
 
 
 function update(){
@@ -127,7 +135,6 @@ function update(){
 	if(
 		(Math.abs(heroLocation.x - monsterLocation.x) <32)&&
 		(Math.abs(heroLocation.y - monsterLocation.y) <32)
-
 		
 	){
 		// console.log("Hero is within 32 of the monster");
@@ -144,9 +151,88 @@ function update(){
 
 }
 
+// Program buttons that stop and start the game 
+var gameOn = false;
+
+function startGame(){
+	gameOn = true;
+	
+	//user started the game, save the time, ssave the time plus thirty seconds
+	gameStart = Date.now(); 
+	gameEnd = Date.now() + 30000;
+	// Start the setInterval
+	timerInterval = setInterval(updateTimer, 1000);
+	score = 0;
+	document.getElementById("scoreKeeper").innerHTML = "Score: " + score;
+}
+
+// Stop game
+
+function stopGame(){
+	gameOn = false;
+	clearInterval(timerInterval);
+	
+	
+}
+
+// resume game
+
+function resumeGame(){
+	gameOn = true; 
+	var timerSection = document.getElementById("timerSection");//timer div
+	var timerSectionText = timerSection.innerHTML; //Time Left: 29 Seconds
+	var timeInString = timerSectionText.slice(11,13);
+	//Successfully got the string in text form
+	console.log(timeInString);
+	// convert it to a number
+	timeInNumber = Number(timeInString);
+	console.log(timeInNumber + 3);
+
+	gameResumed = Date.now();
+	gameEnd = gameResumed + timeInNumber * 1000;
+
+
+	timerInterval = setInterval(updateTimer, 1000);
+
+
+
+	// console.log(timeLeft);
+}
+
+
+//Get pplayer names
+
+function newPlayer(){
+	var playerNameDiv = document.getElementById("player-name");
+	// property for an input box is always a value
+	var playerName = playerNameDiv.value;
+	document.getElementById("greeting").innerHTML = "Hello, " + playerName + "! The town is being overrun by goblins and it is your job to catch as many as you can in 30 seconds! Goodluck!"
+
+}
+function updateTimer(){
+	var now = Date.now(); 
+	var timeLeft = Math.ceil((gameEnd - now)/1000); 
+	if (timeLeft === 0) {
+		clearInterval(timerInterval);
+		gameOn = false;
+		document.getElementById("timerSection").innerHTML = "Game Over!";	
+	}else{
+	document.getElementById("timerSection").innerHTML = "Time Left: " +  timeLeft + " Seconds";
+	}
+}
+
+
+
+var gameStart = 0; 
+var gameResumed = 0;
+var gameEnd = 0; 
+var timerInterval = 0; 
+
 function draw() {
 	//draws our background image on teh context at the top left corner
-	update();
+	if (gameOn){
+		update();
+	}
 	context.drawImage(backgroundImage, 0, 0);
 	context.drawImage(hero, heroLocation.x, heroLocation.y);
 	context.drawImage(monster, monsterLocation.x, monsterLocation.y);
