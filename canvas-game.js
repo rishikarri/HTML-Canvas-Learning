@@ -139,11 +139,28 @@ function update(){
 	){
 		// console.log("Hero is within 32 of the monster");
 		//make monster move if Hero catches the monster
+
+		score++;
+
+		if (score >= allTimeHighScore){
+			allTimeHighScore = score;
+			document.getElementById("highScoreKeeper").innerHTML = "High Score: " + allTimeHighScore; 
+		}
+
+		//grab the last player that was entered by subtracting 1 from the length of the array 
+
+		var currentPlayerIndex = playerArray.length -1;
+		
+		// 
+		if (score > playerArray[currentPlayerIndex].highScore){
+			playerArray[currentPlayerIndex].highScore = score; 
+			console.log(playerArray[currentPlayerIndex].highScore);
+		}
 		var newMonsterX = Math.random() * 400 + 40; 
 		var newMonsterY = Math.random() * 400 + 20;
 		monsterLocation.x = newMonsterX;
 		monsterLocation.y = newMonsterY;
-		score++;
+		
 		document.getElementById("scoreKeeper").innerHTML = "Score: " + score; 
 
 
@@ -183,7 +200,7 @@ function resumeGame(){
 	gameOn = true; 
 	var timerSection = document.getElementById("timerSection");//timer div
 	var timerSectionText = timerSection.innerHTML; //Time Left: 29 Seconds
-	var timeInString = timerSectionText.slice(11,13);
+	var timeInString = timerSectionText.slice(11, 13);
 	//Successfully got the string in text form
 	console.log(timeInString);
 	// convert it to a number
@@ -203,8 +220,8 @@ function resumeGame(){
 // create a new player 
 
 function Player(name){
-	this.name = name; 
-	this.highscore = 0;
+	this.name = name;
+	this.highScore = 0;
 }
 
 
