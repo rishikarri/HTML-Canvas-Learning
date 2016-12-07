@@ -49,6 +49,11 @@ addEventListener("keydown", function(event){
 //control the speed of my hero
 
 var speedModifier = 1;
+var monsterSpeedModifier = 1;
+
+//new destination for monster to drift towardss
+var monsterNewDestinationX  = Math.random() * 400 + 40; 
+var monsterNewDestinationY  = Math.random() * 400 + 20; 
 
 function update(){
 
@@ -76,8 +81,29 @@ function update(){
 
 	//program monster's random movement
 
-	var monsterNewDestinationX  = Math.random() * 400 + 40; 
-	var monsterNewDestinationY  = Math.random() * 400 + 20; 
+	
+
+	//if they are the saame, generate another random variable
+	if (Math.abs(monsterLocation.x - monsterNewDestinationX) < 32) {
+		monsterNewDestinationX = Math.random() * 400 + 40; 
+	}else if(monsterNewDestinationX > monsterLocation.x){
+		monsterLocation.x += 3 * monsterSpeedModifier;
+		console.log(monsterNewDestinationX, monsterLocation.x);
+
+	}else{
+		monsterLocation.x -= 3 * monsterSpeedModifier;
+	}
+	
+	if (Math.abs(monsterLocation.y - monsterNewDestinationY) < 32) {
+		monsterNewDestinationY = Math.random() * 400 + 20; 
+	}else if(monsterNewDestinationY > monsterLocation.y){
+		monsterLocation.y += 3 * monsterSpeedModifier;
+		console.log(monsterNewDestinationY, monsterLocation.y);
+
+	}else{
+		monsterLocation.y -= 3 * monsterSpeedModifier;
+	}	
+	
 
 	// program a check to see if the hero catches the monster
 
